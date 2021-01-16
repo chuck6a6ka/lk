@@ -1,0 +1,53 @@
+extends template
+
+block content
+    div.lk-dashboard__title-button
+        h1 История болезни
+        div.lk-dashboard__title-buttons
+            +button('cancel', 'Вернуться на главную', '/lk.html')
+            +button('default', 'Записаться на прием', '/appointment.html')
+    div.lk-history__yearline
+        h2.lk-history__year 2020
+        h2.lk-history__year 2019
+        h2.lk-history__year 2018
+        h2.lk-history__year 2017
+    p.lk-history__year-separator 2019
+    div.list-history
+        div.dashboard-loading-gif
+
+block script
+    script.
+        let checkShedule = {
+            "id": Cookies.get('idProf')
+        };
+
+        $.ajax({
+            url: 'http://localhost:3012/get-old-request',         /* Куда пойдет запрос */
+            contentType: 'application/json',
+            method: 'get',             /* Метод передачи (post или get) */
+            dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+            data: checkShedule,     /* Параметры передаваемые в запросе. */
+            success: function (data) {
+                console.log(data);
+                $('.dashboard-loading-gif').remove()
+                for (let i = 0; i < data[0].length; i++) {
+                    let doctorName = '';
+                    let doctorRoom = '';
+                    let doctorWork = '';
+                    for (let a = 0; a < data[1].length; a++) {
+                        if (data[1][a].id == data[0][i].req_idDoctor) {
+                            doctorName = data[1][a].doc_lastName + ' ' + (data[1][a].doc_name).charAt(0) + '. ' + (data[1][a].doc_secondName).charAt(0) + '.';
+                            doctorRoom = data[1][a].room;
+                            for (let b = 0; b < data[2].length; b++) {
+                                if (data[2][b].id == data[1][a].doc_idDirection) {
+                                    doctorWork = data[2][b].dir_position
+                                }
+                            }
+                            console.log(doctorWork);
+                        }
+                    }
+                    $('.list-history').append('<div class="lk-history__record" history-request-id="' + data[0][i].id + '"> <div class="lk-history__doctor"><img class="lk-history__doctor-img" src="/image/doctor-profile.png"> <div class="lk-history__doctor-info"> <h2 class="lk-history__doctor-spec">' + doctorWork + '</h2> <h3 class="lk-history__doctor-name">' + doctorName + '</h3> <p class="lk-history__date">' + data[0][i].req_date + '</p> </div> </div><a class="show_history_btn button button_default" >Посмотреть информацию</a> </div>');
+                }
+            }
+        });
+

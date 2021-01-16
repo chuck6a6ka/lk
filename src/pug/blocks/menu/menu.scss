@@ -1,0 +1,41 @@
+.lk-dashboard__menu{
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 30px;
+  box-sizing: border-box;
+}
+
+.lk-dashboard__profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lk-dashboard__prodile-img{
+  margin-bottom: 16px;
+}
+
+.lk-dashboard__menu-list{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.lk-dashboard__menu-link{
+  display: flex;
+  text-decoration: none;
+  color: #1D1E2C;
+  margin-bottom: 24px;
+  align-items: center;
+
+  img{
+    margin-right: 5px;
+    height: 100%;
+  }
+}

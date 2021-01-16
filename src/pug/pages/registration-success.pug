@@ -1,0 +1,17 @@
+include ../blocks/ui-elements/ui-elements
+
+doctype html
+html(lang="ru-RU")
+    include ../blocks/head/head
+    body
+        img(src='/image/top-img.png').img-top
+        img(src='/image/bottom-img.png').img-bottom
+        img(src='/image/back-img.png').img-background
+        div.lk-main-container
+            h1.lk-main-container__h1 Регистрация
+            div.lk-main-container__success
+                img(src='/image/success.png').lk-main-container__img-success
+                h2 Вы успешно зарегистрировались
+                p Нажмите кнопку “Вход” для авторизации
+            .lk-main-container__buttons
+                +button('default', 'Вход', '/')

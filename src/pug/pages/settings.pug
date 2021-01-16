@@ -1,0 +1,56 @@
+extends template
+
+block content
+    div.lk-dashboard__title-button
+        h1 Настройки профиля
+        div.lk-dashboard__title-buttons
+            +button('cancel', 'Вернуться на главную', '/lk.html')
+            +button('default', 'Записаться на прием', '/appointment.html')
+    div.lk-settings
+            div.lk-main-container__2col
+                .lk-main-container__inputs
+                    +input('text', 'default', 'name', 'Имя', 'Имя')
+                    +input('text', 'default', 'lastName', 'Фамилия', 'Фамилия')
+                    +input('text', 'default', 'secondName', 'Отчество', 'Отчество')
+                    +input('text', 'default', 'bdDate', 'Дата рождения', '29.01.2000')
+                    +input('text', 'default', 'phone', 'Телефон', '+7 (999) 258 65 65')
+                    +input('text', 'default', 'login', 'Логин', 'login')
+                .lk-main-container__inputs
+                    +input('text', 'default', 'state', 'Область', 'Волгоградская область')
+                    +input('text', 'default', 'city', 'Город', 'Волгоград')
+                    +input('text', 'default', 'address', 'Домашний адрес', 'Ленина 101')
+                    +input('text', 'default', 'ap_number', 'Квартира', '27')
+                    +input('text', 'default', 'eMail', 'E-mail', 'test@test.ru')
+                    +input('password', 'default', 'password', 'Пароль', '******')
+            .lk-main-container__buttons
+                a(id='update_btn' class='button button_default')
+                    | Сохранить
+
+block script
+    script.
+        let checkShedule = {
+            "id": Cookies.get('idProf')
+        };
+
+        $.ajax({
+            url: 'http://localhost:3012/profile',         /* Куда пойдет запрос */
+            contentType: 'application/json',
+            method: 'get',             /* Метод передачи (post или get) */
+            dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+            data: checkShedule,     /* Параметры передаваемые в запросе. */
+            success: function (data) {
+                console.log(data);
+                $('#name').val(data.p_name);
+                $('#lastName').val(data.p_lastName);
+                $('#secondName').val(data.p_secondName);
+                $('#bdDate').val(data.p_bd_date);
+                $('#phone').val(data.p_phone);
+                $('#login').val(data.p_login);
+                $('#state').val(data.p_state);
+                $('#city').val(data.p_city);
+                $('#address').val(data.p_address);
+                $('#ap_number').val(data.p_apartNumber);
+                $('#eMail').val(data.p_email);
+                $('#password').val(data.p_password);
+            }
+        });

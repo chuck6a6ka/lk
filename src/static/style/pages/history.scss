@@ -1,0 +1,51 @@
+.lk-dashboard__title-buttons{
+  display: flex;
+  gap: 16px;
+}
+
+.lk-history__yearline{
+  display: flex;
+  gap: 32px;
+}
+
+.lk-history__year{
+  cursor: pointer;
+  color: #7D7D7D;
+  transition: .3s;
+
+  &:hover{
+    color: #1D1E2C;
+  }
+}
+
+.lk-history__year-separator{
+  font-weight: 900;
+  font-size: 36px;
+  margin-top: 36px;
+}
+
+.lk-history__record{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 800px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.lk-history__date{
+  font-weight: 900;
+  font-size: 16px;
+  color: #7D7D7D;
+}
+
+.lk-history__doctor{
+  display: flex;
+}
+
+.lk-history__doctor-info{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 16px;
+}

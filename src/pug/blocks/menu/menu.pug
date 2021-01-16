@@ -1,0 +1,31 @@
+.lk-dashboard__menu
+    .lk-dashboard__profile
+        img(src='/image/user.png').lk-dashboard__prodile-img
+        h3.lk-dashboard__profile-name
+    ul.lk-dashboard__menu-list
+        li
+            a(href="/lk.html").lk-dashboard__menu-link
+                img(src='/image/home.png')
+                h3 Главная
+        li
+            a(href="/appointment.html").lk-dashboard__menu-link
+                img(src='/image/pen.png')
+                h3 Запись на прием
+        li
+            a(href="my-schedule.html").lk-dashboard__menu-link
+                img(src='/image/calendar.png')
+                h3 Мои записи
+        li
+            a(href="/history.html").lk-dashboard__menu-link
+                img(src='/image/list.png')
+                h3 История болезни
+        li
+            a(href="/schedule.html").lk-dashboard__menu-link
+                img(src='/image/clock.png')
+                h3 Расписание работы врачей
+    div.footer-menu
+        a(href="/settings.html").lk-dashboard__menu-link
+            img(src='/image/gear.png')
+            h3 Настройка профиля
+        a(id='exit_btn' class='button button_default')
+            | Выход

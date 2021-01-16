@@ -1,0 +1,12 @@
+include ../blocks/ui-elements/ui-elements
+
+doctype html
+html(lang="ru-RU")
+    include ../blocks/head/head
+    body
+        .lk-dashboard
+            include ../blocks/menu/menu
+            .lk-dashboard__workarea
+                block content
+    include ../blocks/footer/footer
+    block script

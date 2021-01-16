@@ -1,0 +1,37 @@
+extends template
+
+block content
+    div.lk-dashboard__title-button
+        h1 Расписание
+        div.lk-dashboard__title-buttons
+            +button('cancel', 'Вернуться на главную', '/lk.html')
+            +button('default', 'Записаться на прием', '/appointment.html')
+    div.lk-schedule.list-doctor
+        div.dashboard-loading-gif
+
+block script
+    script.
+        $.ajax({
+            url: 'http://localhost:3012/get-doctor-shedule',         /* Куда пойдет запрос */
+            contentType: 'application/json',
+            method: 'get',             /* Метод передачи (post или get) */
+            dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+            success: function (data) {
+                console.log(data);
+                $('.dashboard-loading-gif').remove()
+                for(let i = 0; i < data[0].length; i++){
+                    let doctorName = '';
+                    let doctorRoom = '';
+                    let doctorWork = '';
+                    doctorName = data[0][i].doc_lastName + ' ' + (data[0][i].doc_name).charAt(0) + '. ' + (data[0][i].doc_secondName).charAt(0) + '.';
+                    doctorRoom = data[0][i].room;
+                    for(let a = 0; a < data[1].length; a++){
+                        if(data[0][i].doc_idDirection == data[1][a].id){
+                            doctorWork = data[1][a].dir_title + ' | ' + data[1][a].dir_position
+                        }
+                    }
+                    console.log(doctorWork);
+                    $('.list-doctor').append('<div class="lk-schedule__doctor"><img class="lk-schedule__doctor-img" src="/image/doctor-profile.png"> <div class="lk-schedule__doctor-info"> <h2 class="lk-schedule__doctor-name">'+doctorWork+' - '+doctorName+'</h2> <h3 class="lk-schedule__doctor-date">Время работы с '+data[0][i].work_day+'</h3> <h3 class="lk-schedule__doctor-time">'+data[0][i].work_time+'</h3> </div> </div>');
+                }
+            }
+        });

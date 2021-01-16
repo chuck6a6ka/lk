@@ -1,0 +1,35 @@
+include ../blocks/ui-elements/ui-elements
+
+doctype html
+html(lang="ru-RU")
+    include ../blocks/head/head
+    body
+        img(src='/image/top-img.png').img-top
+        img(src='/image/bottom-img.png').img-bottom
+        img(src='/image/back-img.png').img-background
+        div.lk-main-container
+            h1.lk-main-container__h1 Регистрация
+            p.lk-main-container__label Пол
+            div.lk-main-container__2col
+                +checkbox('Мужчина', 'male')
+                +checkbox('Женщина', 'female')
+            div.lk-main-container__2col
+                .lk-main-container__inputs
+                    +input('text', 'default', 'name', 'Имя', 'Имя')
+                    +input('text', 'default', 'lastName', 'Фамилия', 'Фамилия')
+                    +input('text', 'default', 'secondName', 'Отчество', 'Отчество')
+                    +input('text', 'default', 'bdDate', 'Дата рождения', '29.01.2000')
+                    +input('text', 'default', 'phone', 'Телефон', '+7 (999) 258 65 65')
+                    +input('text', 'default', 'login', 'Логин', 'login')
+                .lk-main-container__inputs
+                    +input('text', 'default', 'state', 'Область', 'Волгоградская область')
+                    +input('text', 'default', 'city', 'Город', 'Волгоград')
+                    +input('text', 'default', 'address', 'Домашний адрес', 'Ленина 101')
+                    +input('text', 'default', 'ap_number', 'Квартира', '27')
+                    +input('text', 'default', 'eMail', 'E-mail', 'test@test.ru')
+                    +input('password', 'default', 'password', 'Пароль', '******')
+            +checkbox('Согласен(на) с договором оферты и приложениями к нему', 'check')
+            .lk-main-container__buttons
+                a(id='reg_btn' class='button button_default')
+                    | Отправить
+    include ../blocks/footer/footer

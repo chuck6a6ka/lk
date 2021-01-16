@@ -1,0 +1,36 @@
+.lk-schedule{
+  display: flex;
+  flex-direction: column;
+}
+
+.lk-schedule__doctor-info{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 16px;
+}
+
+.lk-schedule__doctor{
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.lk-my-schedule{
+  display: flex;
+  flex-direction: column;
+
+  .lk-card{
+    width: 300px;
+    margin-right: 25px;
+    margin-top: 25px;
+  }
+}
+
+.lk-my-schedule__date{
+  margin-top: 32px;
+}
+
+.lk-my-schedule__row{
+  display: flex;
+  flex-wrap: wrap;
+}

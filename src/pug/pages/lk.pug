@@ -1,0 +1,74 @@
+extends template
+
+block content
+    .lk-dashboard__title-button
+        h1 Главная страница
+        +button('default', 'Записаться на прием', '/appointment.html')
+    .lk-dashboard__grid
+        .lk-dashboard__grid-column.newRequest
+            h2 Предстоящие записи
+            div.dashboard-loading-gif
+        .lk-dashboard__grid-column.oldRequest
+            h2 История болезни
+            div.dashboard-loading-gif
+        .lk-dashboard__grid-column.listNews
+            h2 Объявления
+            div.dashboard-loading-gif
+block script
+    script.
+        let checkInfo = {
+            "id": Cookies.get('idProf')
+        };
+
+        $.ajax({
+            url: 'http://localhost:3012/get-info',         /* Куда пойдет запрос */
+            contentType: 'application/json',
+            method: 'get',             /* Метод передачи (post или get) */
+            dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+            data: checkInfo,     /* Параметры передаваемые в запросе. */
+            success: function (data) {
+               console.log(data);
+               $('.dashboard-loading-gif').remove()
+               for(let i = 0; i < data[0].length; i++){
+                   $('.listNews').append('<div class="lk-dashboard__text-block" news-id = "'+ data[0][i].id +'" > <h3>'+ data[0][i].news_title +'</h3> <p>'+ data[0][i].news_body +'</p> <p>'+ data[0][i].news_date +'</p></div>');
+               }
+                for (let i = 0; i < data[1].length; i++) {
+                    let doctorName = '';
+                    let doctorRoom = '';
+                    let doctorWork = '';
+                    for(let a = 0; a < data[3].length; a++){
+                        if(data[3][a].id == data[1][i].req_idDoctor){
+                            doctorName = data[3][a].doc_lastName + ' ' + (data[3][a].doc_name).charAt(0) + '. ' + (data[3][a].doc_secondName).charAt(0)+ '.';
+                            doctorRoom = data[3][a].room;
+                            for(let b = 0; b < data[4].length; b++){
+                                if(data[4][b].id == data[3][a].doc_idDirection){
+                                    doctorWork = data[4][b].dir_position
+                                }
+                            }
+                            console.log(doctorWork);
+                        }
+                    }
+                    $('.newRequest').append('<div class="lk-dashboard__card lk-card lk-card_navy-blue" newRequest-id="'+ data[1][i].id +'"> <div class="lk-card__time"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">'+ data[1][i].req_date +' — '+ data[1][i].time +'</div> </div> </div> <div class="lk-card__doctor"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">'+ doctorWork +'</div> <div class="lk-card__text lk-card__text_small">'+ doctorName +'</div> </div> </div> <div class="lk-card__place"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">Кабинет</div> <div class="lk-card__text lk-card__text_small">'+ doctorRoom +'</div> </div><a class="btn-delete-request button button_cancel" newRequest-id-cancel="'+ data[1][i].id +'">Отменить</a> </div> </div>');
+                }
+                $('.newRequest').append('<a class="button button_default" href="/my-schedule.html">Посмотреть все</a>');
+                for (let i = 0; i < data[2].length; i++) {
+                    let doctorName = '';
+                    let doctorRoom = '';
+                    let doctorWork = '';
+                    for (let a = 0; a < data[3].length; a++) {
+                        if (data[3][a].id == data[1][i].req_idDoctor) {
+                            doctorName = data[3][a].doc_lastName + ' ' + (data[3][a].doc_name).charAt(0) + '. ' + (data[3][a].doc_secondName).charAt(0) + '.';
+                            doctorRoom = data[3][a].room;
+                            for (let b = 0; b < data[4].length; b++) {
+                                if (data[4][b].id == data[3][a].doc_idDirection) {
+                                    doctorWork = data[4][b].dir_position
+                                }
+                            }
+                            console.log(doctorWork);
+                        }
+                    }
+                    $('.oldRequest').append('<div class="lk-dashboard__card lk-card lk-card_blue" oldRequest-id="' + data[2][i].id + '"> <div class="lk-card__time"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">'+ data[2][i].req_date +'</div> </div> </div> <div class="lk-card__doctor"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">' + doctorWork + '</div> <div class="lk-card__text lk-card__text_small">' + doctorName + '</div> </div> </div> <div class="lk-card__place"> <div class="lk-card__2rows"></div><a class="show_history_btn button button_history" oldRequest-id-cancel="' + data[2][i].id + '">Посмотреть информацию</a> </div> </div>')
+                }
+                $('.oldRequest').append('<a class="button button_default" href="/history.html">Посмотреть все</a>');
+            }
+        });

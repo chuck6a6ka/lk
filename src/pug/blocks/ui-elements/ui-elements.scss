@@ -1,0 +1,146 @@
+.button {
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: Golos, sans-serif;
+  font-weight: 900;
+  text-decoration: none;
+  transition: .2s;
+  width: fit-content;
+  height: fit-content;
+
+
+
+  &:hover {
+    background: #119DA4;
+    box-shadow: 0 5px 10px rgba(48, 102, 190, 0.5);
+    color: white;
+  }
+
+  &_default {
+    color: white;
+    background: #119DA4 linear-gradient(90deg, #3066BE 0%, #119DA4 100%);
+  }
+
+  &_secondary {
+    background: #E3E3E3;
+    color: #1D1E2C;
+  }
+
+  &_cancel{
+    background: #FF9292;
+    color: white;
+
+    &:hover {
+      background: #FF9292;
+      box-shadow: 0 5px 10px rgba(255, 146, 146, 0.35);
+      color: white;
+    }
+  }
+  &_history{
+    background: #FF9292;
+    color: white;
+
+    &:hover {
+      background: #FF9292;
+      box-shadow: 0 5px 10px rgba(255, 146, 146, 0.35);
+      color: white;
+    }
+  }
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+
+  & label {
+    font-family: Golos, sans-serif;
+    font-weight: 300;
+    color: #1D1E2C;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+  }
+
+  & input {
+    display: flex;
+    padding: 8px 10px;
+    font-family: Golos, sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px solid #74BABD;
+
+    &:focus {
+      outline: none;
+      border-color: #1D1E2C;
+    }
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+
+  & label {
+    cursor: pointer;
+  }
+
+  & input {
+    position: absolute;
+    height: 0;
+    width: 0;
+
+    &:focus{
+      &:before{
+        outline: 2px solid #1D1E2C;
+      }
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      height: 16px;
+      width: 16px;
+      border-radius: 5px;
+      border: 2px solid #119DA4;
+      margin-right: 8px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      height: 12px;
+      width: 12px;
+      border-radius: 2px;
+      background: transparent;
+      transition: .3s;
+    }
+
+    &:checked {
+      &:after {
+        background: #119DA4;
+      }
+    }
+  }
+
+  & p {
+    position: relative;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    font-family: Golos, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #1D1E2C;
+    padding: 8px 0;
+    padding-left: 32px;
+  }
+}

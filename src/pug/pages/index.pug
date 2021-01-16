@@ -1,0 +1,35 @@
+include ../blocks/ui-elements/ui-elements
+
+doctype html
+html(lang="ru-RU")
+    include ../blocks/head/head
+    body
+        img(src='/image/top-img.png').img-top
+        img(src='/image/bottom-img.png').img-bottom
+        img(src='/image/back-img.png').img-background
+        div.lk-main-container
+            h1.lk-main-container__h1 Авторизация
+
+            .lk-main-container__inputs
+                +input('text', 'default', 'login', 'Логин', 'Логин')
+                +input('password', 'default', 'password', 'Пароль', 'Пароль')
+            +checkbox('Согласен(на) с договором оферты и приложениями к нему', 'check')
+            .lk-main-container__buttons
+                a(id='login_btn' class='button button_default')
+                    | Отправить
+                +button('secondary', 'Регистрация', '/registration.html', 'reg_btn')
+
+    include ../blocks/footer/footer
+    script.
+        if (Cookies.get('registration') == 'accept') {
+            window.location.href = "http://localhost:3000/lk.html"
+        }
+
+
+
+
+
+
+
+
+
