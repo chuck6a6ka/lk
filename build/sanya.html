@@ -47,10 +47,22 @@
           </div>
           <div class="item">
             <h3 class="open_item-desc">НАЗВАНИЕ</h3>
-            <div class="item-desc" style="display:none; grid-template-columns: 1fr 1fr 1fr;">
-              <p>12341234</p>
-              <p>123412341</p>
-              <p>123412341234</p>
+            <div class="item-desc" style="display:none;">
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr;">
+                <p>12341234</p>
+                <p>123412341</p>
+                <p>123412341234</p>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr;">
+                <p>12341234</p>
+                <p>123412341</p>
+                <p>123412341234</p>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr;">
+                <p>12341234</p>
+                <p>123412341</p>
+                <p>123412341234</p>
+              </div>
             </div>
           </div>
         </div>
@@ -69,7 +81,7 @@
             $(this).next().css({"display": "none"});
         }else{
             $(this).addClass('open')
-            $(this).next().css({"display": "grid"});
+            $(this).next().css({"display": "block"});
         }
     })
   </script>

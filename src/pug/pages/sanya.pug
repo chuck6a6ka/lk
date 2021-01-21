@@ -16,10 +16,19 @@ block content
                 p 123412341234
         div.item
             h3.open_item-desc НАЗВАНИЕ
-            div(style='display:none; grid-template-columns: 1fr 1fr 1fr;').item-desc
-                p 12341234
-                p 123412341
-                p 123412341234
+            div(style='display:none;').item-desc
+                div(style='display:grid; grid-template-columns: 1fr 1fr 1fr;')
+                   p 12341234
+                   p 123412341
+                   p 123412341234
+                div(style='display:grid; grid-template-columns: 1fr 1fr 1fr;')
+                    p 12341234
+                    p 123412341
+                    p 123412341234
+                div(style='display:grid; grid-template-columns: 1fr 1fr 1fr;')
+                    p 12341234
+                    p 123412341
+                    p 123412341234
 
 
 block script
@@ -30,7 +39,7 @@ block script
                 $(this).next().css({"display": "none"});
             }else{
                 $(this).addClass('open')
-                $(this).next().css({"display": "grid"});
+                $(this).next().css({"display": "block"});
             }
         })
         
