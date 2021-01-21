@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <title>Больница</title>
+    <link rel="stylesheet" href="css/lib/nice-select.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="lk-dashboard">
+      <div class="lk-dashboard__menu">
+        <div class="lk-dashboard__profile"><img class="lk-dashboard__prodile-img" src="/image/user.png">
+          <h3 class="lk-dashboard__profile-name"></h3>
+        </div>
+        <ul class="lk-dashboard__menu-list">
+          <li><a class="lk-dashboard__menu-link" href="/lk.html"><img src="/image/home.png">
+              <h3>Главная</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/appointment.html"><img src="/image/pen.png">
+              <h3>Запись на прием</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="my-schedule.html"><img src="/image/calendar.png">
+              <h3>Мои записи</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/history.html"><img src="/image/list.png">
+              <h3>История болезни</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/schedule.html"><img src="/image/clock.png">
+              <h3>Расписание работы врачей</h3></a></li>
+        </ul>
+        <div class="footer-menu"><a class="lk-dashboard__menu-link" href="/settings.html"><img src="/image/gear.png">
+            <h3>Настройка профиля</h3></a><a class="button button_default" id="exit_btn">Выход</a></div>
+      </div>
+      <div class="lk-dashboard__workarea">
+        <div class="lk-dashboard__title-button">
+          <h1>Мои записи</h1>
+          <div class="lk-dashboard__title-buttons"><a class="button button_cancel" href="/lk.html">Вернуться на главную</a><a class="button button_default" href="/appointment.html">Записаться на прием</a>
+          </div>
+        </div>
+        <div class="lk-my-schedule">
+          <div class="lk-my-schedule__row newShedule">
+            <div class="dashboard-loading-gif"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.nice-select.min.js"></script>
+  <script src="js/lib/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/lib.min.js"></script>
+  <script>
+    let checkShedule = {
+        "id": Cookies.get('idProf')
+    };
+    
+    $.ajax({
+        url: 'http://localhost:3012/get-request',         /* Куда пойдет запрос */
+        contentType: 'application/json',
+        method: 'get',             /* Метод передачи (post или get) */
+        dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+        data: checkShedule,     /* Параметры передаваемые в запросе. */
+        success: function (data) {
+            console.log(data);
+            $('.dashboard-loading-gif').remove()
+            for (let i = 0; i < data[0].length; i++) {
+                let doctorName = '';
+                let doctorRoom = '';
+                let doctorWork = '';
+                for (let a = 0; a < data[1].length; a++) {
+                    if (data[1][a].id == data[0][i].req_idDoctor) {
+                        doctorName = data[1][a].doc_lastName + ' ' + (data[1][a].doc_name).charAt(0) + '. ' + (data[1][a].doc_secondName).charAt(0) + '.';
+                        doctorRoom = data[1][a].room;
+                        for (let b = 0; b < data[2].length; b++) {
+                            if (data[2][b].id == data[1][a].doc_idDirection) {
+                                doctorWork = data[2][b].dir_position
+                            }
+                        }
+                        console.log(doctorWork);
+                    }
+                }
+                $('.newShedule').append('<div class="lk-dashboard__card lk-card lk-card_navy-blue" newRequest-id="' + data[0][i].id + '"> <div class="lk-card__time"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">' + data[0][i].req_date + ' — ' + data[0][i].time + '</div> </div> </div> <div class="lk-card__doctor"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">' + doctorWork + '</div> <div class="lk-card__text lk-card__text_small">' + doctorName + '</div> </div> </div> <div class="lk-card__place"> <div class="lk-card__2rows"> <div class="lk-card__text lk-card__text_bold">Кабинет</div> <div class="lk-card__text lk-card__text_small">' + doctorRoom + '</div> </div><a class="button btn-delete-request button_cancel" newRequest-id-cancel="' + data[0][i].id + '">Отменить</a> </div> </div>');
+            }
+         }
+    });
+  </script>
+</html>

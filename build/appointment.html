@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <title>Больница</title>
+    <link rel="stylesheet" href="css/lib/nice-select.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="lk-dashboard">
+      <div class="lk-dashboard__menu">
+        <div class="lk-dashboard__profile"><img class="lk-dashboard__prodile-img" src="/image/user.png">
+          <h3 class="lk-dashboard__profile-name"></h3>
+        </div>
+        <ul class="lk-dashboard__menu-list">
+          <li><a class="lk-dashboard__menu-link" href="/lk.html"><img src="/image/home.png">
+              <h3>Главная</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/appointment.html"><img src="/image/pen.png">
+              <h3>Запись на прием</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="my-schedule.html"><img src="/image/calendar.png">
+              <h3>Мои записи</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/history.html"><img src="/image/list.png">
+              <h3>История болезни</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/schedule.html"><img src="/image/clock.png">
+              <h3>Расписание работы врачей</h3></a></li>
+        </ul>
+        <div class="footer-menu"><a class="lk-dashboard__menu-link" href="/settings.html"><img src="/image/gear.png">
+            <h3>Настройка профиля</h3></a><a class="button button_default" id="exit_btn">Выход</a></div>
+      </div>
+      <div class="lk-dashboard__workarea">
+        <div class="lk-dashboard__title-button">
+          <h1>Запись на прием</h1>
+          <div class="lk-dashboard__title-buttons"><a class="button button_cancel" href="/lk.html">Вернуться на главную</a>
+          </div>
+        </div>
+        <div class="lk-appointment">
+          <h2>Выберите направление</h2>
+          <div class="lk-appointment__card-list listCard">
+            <div class="dashboard-loading-gif"></div>
+          </div>
+          <div class="lk-appointment__select-block-1">
+            <h2 class="lk-appointment__select-title">Выберите врача</h2>
+            <select class="lk-appointment__select listDoctor"></select>
+          </div>
+          <div class="lk-appointment__select-block-2">
+            <h2 class="lk-appointment__select-title">Выберите дату</h2>
+            <select class="lk-appointment__select listDay">
+              <option value="2021-10-21">2021-10-21</option>
+              <option value="2021-10-22">2021-10-22</option>
+            </select>
+          </div>
+          <div class="lk-appointment__select-block-3">
+            <h2 class="lk-appointment__select-title">Выберите время</h2>
+            <select class="lk-appointment__select listTime">
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+            </select>
+          </div><a class="button button_default" id="create_new_request_btn">Записаться на прием</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.nice-select.min.js"></script>
+  <script src="js/lib/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/lib.min.js"></script>
+  <script>
+    var info;
+    $.ajax({
+        url: 'http://localhost:3012/create-new-request',         /* Куда пойдет запрос */
+        contentType: 'application/json',
+        method: 'get',             /* Метод передачи (post или get) */
+        dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+        success: function (data) {
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * Math.floor(max));
+            }
+            console.log(data);
+            info = data;
+            let addCard = [];
+            $('.dashboard-loading-gif').remove()
+            for(let i = 0; i < data[0].length; i++){
+                for(let a = 0; a < data[1].length; a++){
+                    if(data[1][a].id == data[0][i].doc_idDirection & addCard.indexOf(data[1][a].id) == -1){
+                        addCard.push(data[1][a].id);
+                        let nameCard = data[1][a].dir_title + ' | ' + data[1][a].dir_position;
+                        $('.listCard').append('<div class="lk-appointment__card" positionCard_id="' + data[1][a].id + '" ><img class="lk-appointment__card-img" src="/image/app' + (Number(getRandomInt(3)) + 1).toString() + '.png"><span class="lk-appointment__card-name">' + nameCard + '</span> <input type="radio" value="' + nameCard + '" name="type-select" id="card_' + data[1][a].id + '"> <label for="card_' + data[1][a].id + '">Выбрать</label> </div>');
+                    }
+                }
+            }
+    
+            if ($('.lk-appointment').length != 0) {
+                let cards = $('.lk-appointment__card')
+                let block1 = $('.lk-appointment__select-block-1')
+                let block2 = $('.lk-appointment__select-block-2')
+                let block3 = $('.lk-appointment__select-block-3')
+                let regButton = $('.lk-appointment .button')
+    
+                block1.find('select').change(function () {
+                    block2.addClass('active')
+                    block3.removeClass('active')
+                    regButton.removeClass('active');
+                });
+                block2.find('select').change(function () {
+                    block3.addClass('active');
+                    regButton.removeClass('active');
+                });
+                block3.find('select').change(function () {
+                    regButton.addClass('active');
+                });
+                cards.each(function () {
+                    let currentCard = $(this);
+                    let button = $(this).find('label');
+    
+                    button.click(function () {
+                        $('.listDoctor').html('');
+                        let cardId = currentCard.attr('positionCard_id');
+                        console.log(cardId);
+                        for (let i = 0; i < data[0].length; i++) {
+                            if(data[0][i].doc_idDirection == cardId){
+                                let doctorName = data[0][i].doc_lastName + ' ' + (data[0][i].doc_name).charAt(0) + '. ' + (data[0][i].doc_secondName).charAt(0) + '.';
+                                $('.listDoctor').append('<option value="' + data[0][i].id + '">' + doctorName + '</option>');
+                            }
+                        }
+    
+                        $('select').niceSelect("update");
+    
+                        cards.each(function () {
+                            $(this).css('opacity', '20%')
+                            $(this).removeClass('selectCard');
+                        })
+                        currentCard.css('opacity', '100%')
+                        currentCard.addClass('selectCard');
+                        block1.addClass('active');
+                        block2.removeClass('active');
+                        block3.removeClass('active');
+                        regButton.removeClass('active');
+                    })
+                })
+            }
+    
+        }
+    });
+  </script>
+</html>

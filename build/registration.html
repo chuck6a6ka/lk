@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <title>Больница</title>
+    <link rel="stylesheet" href="css/lib/nice-select.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body><img class="img-top" src="/image/top-img.png"><img class="img-bottom" src="/image/bottom-img.png"><img class="img-background" src="/image/back-img.png">
+    <div class="lk-main-container">
+      <h1 class="lk-main-container__h1">Регистрация</h1>
+      <p class="lk-main-container__label">Пол</p>
+      <div class="lk-main-container__2col">
+        <div class="checkbox">
+          <label for="male">
+            <input id="male" type="checkbox"/>
+            <p>Мужчина</p>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label for="female">
+            <input id="female" type="checkbox"/>
+            <p>Женщина</p>
+          </label>
+        </div>
+      </div>
+      <div class="lk-main-container__2col">
+        <div class="lk-main-container__inputs">
+          <div class="input input_default">
+            <label for="name">Имя</label>
+            <input type="text" placeholder="Имя" id="name" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="lastName">Фамилия</label>
+            <input type="text" placeholder="Фамилия" id="lastName" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="secondName">Отчество</label>
+            <input type="text" placeholder="Отчество" id="secondName" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="bdDate">Дата рождения</label>
+            <input type="text" placeholder="29.01.2000" id="bdDate" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="phone">Телефон</label>
+            <input type="text" placeholder="+7 (999) 258 65 65" id="phone" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="login">Логин</label>
+            <input type="text" placeholder="login" id="login" required="required"/>
+          </div>
+        </div>
+        <div class="lk-main-container__inputs">
+          <div class="input input_default">
+            <label for="state">Область</label>
+            <input type="text" placeholder="Волгоградская область" id="state" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="city">Город</label>
+            <input type="text" placeholder="Волгоград" id="city" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="address">Домашний адрес</label>
+            <input type="text" placeholder="Ленина 101" id="address" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="ap_number">Квартира</label>
+            <input type="text" placeholder="27" id="ap_number" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="eMail">E-mail</label>
+            <input type="text" placeholder="test@test.ru" id="eMail" required="required"/>
+          </div>
+          <div class="input input_default">
+            <label for="password">Пароль</label>
+            <input type="password" placeholder="******" id="password" required="required"/>
+          </div>
+        </div>
+      </div>
+      <div class="checkbox">
+        <label for="check">
+          <input id="check" type="checkbox"/>
+          <p>Согласен(на) с договором оферты и приложениями к нему</p>
+        </label>
+      </div>
+      <div class="lk-main-container__buttons"><a class="button button_default" id="reg_btn">Отправить</a></div>
+    </div>
+  </body>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.nice-select.min.js"></script>
+  <script src="js/lib/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/lib.min.js"></script>
+</html>

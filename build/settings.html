@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <title>Больница</title>
+    <link rel="stylesheet" href="css/lib/nice-select.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="lk-dashboard">
+      <div class="lk-dashboard__menu">
+        <div class="lk-dashboard__profile"><img class="lk-dashboard__prodile-img" src="/image/user.png">
+          <h3 class="lk-dashboard__profile-name"></h3>
+        </div>
+        <ul class="lk-dashboard__menu-list">
+          <li><a class="lk-dashboard__menu-link" href="/lk.html"><img src="/image/home.png">
+              <h3>Главная</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/appointment.html"><img src="/image/pen.png">
+              <h3>Запись на прием</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="my-schedule.html"><img src="/image/calendar.png">
+              <h3>Мои записи</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/history.html"><img src="/image/list.png">
+              <h3>История болезни</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/schedule.html"><img src="/image/clock.png">
+              <h3>Расписание работы врачей</h3></a></li>
+        </ul>
+        <div class="footer-menu"><a class="lk-dashboard__menu-link" href="/settings.html"><img src="/image/gear.png">
+            <h3>Настройка профиля</h3></a><a class="button button_default" id="exit_btn">Выход</a></div>
+      </div>
+      <div class="lk-dashboard__workarea">
+        <div class="lk-dashboard__title-button">
+          <h1>Настройки профиля</h1>
+          <div class="lk-dashboard__title-buttons"><a class="button button_cancel" href="/lk.html">Вернуться на главную</a><a class="button button_default" href="/appointment.html">Записаться на прием</a>
+          </div>
+        </div>
+        <div class="lk-settings">
+          <div class="lk-main-container__2col">
+            <div class="lk-main-container__inputs">
+              <div class="input input_default">
+                <label for="name">Имя</label>
+                <input type="text" placeholder="Имя" id="name" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="lastName">Фамилия</label>
+                <input type="text" placeholder="Фамилия" id="lastName" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="secondName">Отчество</label>
+                <input type="text" placeholder="Отчество" id="secondName" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="bdDate">Дата рождения</label>
+                <input type="text" placeholder="29.01.2000" id="bdDate" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="phone">Телефон</label>
+                <input type="text" placeholder="+7 (999) 258 65 65" id="phone" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="login">Логин</label>
+                <input type="text" placeholder="login" id="login" required="required"/>
+              </div>
+            </div>
+            <div class="lk-main-container__inputs">
+              <div class="input input_default">
+                <label for="state">Область</label>
+                <input type="text" placeholder="Волгоградская область" id="state" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="city">Город</label>
+                <input type="text" placeholder="Волгоград" id="city" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="address">Домашний адрес</label>
+                <input type="text" placeholder="Ленина 101" id="address" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="ap_number">Квартира</label>
+                <input type="text" placeholder="27" id="ap_number" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="eMail">E-mail</label>
+                <input type="text" placeholder="test@test.ru" id="eMail" required="required"/>
+              </div>
+              <div class="input input_default">
+                <label for="password">Пароль</label>
+                <input type="password" placeholder="******" id="password" required="required"/>
+              </div>
+            </div>
+          </div>
+          <div class="lk-main-container__buttons"><a class="button button_default" id="update_btn">Сохранить</a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.nice-select.min.js"></script>
+  <script src="js/lib/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/lib.min.js"></script>
+  <script>
+    let checkShedule = {
+        "id": Cookies.get('idProf')
+    };
+    
+    $.ajax({
+        url: 'http://localhost:3012/profile',         /* Куда пойдет запрос */
+        contentType: 'application/json',
+        method: 'get',             /* Метод передачи (post или get) */
+        dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+        data: checkShedule,     /* Параметры передаваемые в запросе. */
+        success: function (data) {
+            console.log(data);
+            $('#name').val(data.p_name);
+            $('#lastName').val(data.p_lastName);
+            $('#secondName').val(data.p_secondName);
+            $('#bdDate').val(data.p_bd_date);
+            $('#phone').val(data.p_phone);
+            $('#login').val(data.p_login);
+            $('#state').val(data.p_state);
+            $('#city').val(data.p_city);
+            $('#address').val(data.p_address);
+            $('#ap_number').val(data.p_apartNumber);
+            $('#eMail').val(data.p_email);
+            $('#password').val(data.p_password);
+        }
+    });
+  </script>
+</html>

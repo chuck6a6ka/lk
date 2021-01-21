@@ -1,0 +1,40 @@
+extends template
+
+block content
+    div.list-item
+        div.item
+            h3.open_item-desc НАЗВАНИЕ
+            div(style='display:none; grid-template-columns: 1fr 1fr 1fr; tra').item-desc
+                p 12341234
+                p 123412341
+                p 123412341234
+        div.item
+            h3.open_item-desc НАЗВАНИЕ
+            div(style='display:none; grid-template-columns: 1fr 1fr 1fr;').item-desc
+                p 12341234
+                p 123412341
+                p 123412341234
+        div.item
+            h3.open_item-desc НАЗВАНИЕ
+            div(style='display:none; grid-template-columns: 1fr 1fr 1fr;').item-desc
+                p 12341234
+                p 123412341
+                p 123412341234
+
+
+block script
+    script.
+        $(document).on('click','.open_item-desc',function () {
+            if($(this).hasClass('open')){
+                $(this).removeClass('open')
+                $(this).next().css({"display": "none"});
+            }else{
+                $(this).addClass('open')
+                $(this).next().css({"display": "grid"});
+            }
+        })
+        
+
+
+
+

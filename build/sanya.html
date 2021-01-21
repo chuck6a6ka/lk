@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <title>Больница</title>
+    <link rel="stylesheet" href="css/lib/nice-select.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="lk-dashboard">
+      <div class="lk-dashboard__menu">
+        <div class="lk-dashboard__profile"><img class="lk-dashboard__prodile-img" src="/image/user.png">
+          <h3 class="lk-dashboard__profile-name"></h3>
+        </div>
+        <ul class="lk-dashboard__menu-list">
+          <li><a class="lk-dashboard__menu-link" href="/lk.html"><img src="/image/home.png">
+              <h3>Главная</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/appointment.html"><img src="/image/pen.png">
+              <h3>Запись на прием</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="my-schedule.html"><img src="/image/calendar.png">
+              <h3>Мои записи</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/history.html"><img src="/image/list.png">
+              <h3>История болезни</h3></a></li>
+          <li><a class="lk-dashboard__menu-link" href="/schedule.html"><img src="/image/clock.png">
+              <h3>Расписание работы врачей</h3></a></li>
+        </ul>
+        <div class="footer-menu"><a class="lk-dashboard__menu-link" href="/settings.html"><img src="/image/gear.png">
+            <h3>Настройка профиля</h3></a><a class="button button_default" id="exit_btn">Выход</a></div>
+      </div>
+      <div class="lk-dashboard__workarea">
+        <div class="list-item">
+          <div class="item">
+            <h3 class="open_item-desc">НАЗВАНИЕ</h3>
+            <div class="item-desc" style="display:none; grid-template-columns: 1fr 1fr 1fr; tra">
+              <p>12341234</p>
+              <p>123412341</p>
+              <p>123412341234</p>
+            </div>
+          </div>
+          <div class="item">
+            <h3 class="open_item-desc">НАЗВАНИЕ</h3>
+            <div class="item-desc" style="display:none; grid-template-columns: 1fr 1fr 1fr;">
+              <p>12341234</p>
+              <p>123412341</p>
+              <p>123412341234</p>
+            </div>
+          </div>
+          <div class="item">
+            <h3 class="open_item-desc">НАЗВАНИЕ</h3>
+            <div class="item-desc" style="display:none; grid-template-columns: 1fr 1fr 1fr;">
+              <p>12341234</p>
+              <p>123412341</p>
+              <p>123412341234</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.nice-select.min.js"></script>
+  <script src="js/lib/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/lib.min.js"></script>
+  <script>
+    $(document).on('click','.open_item-desc',function () {
+        if($(this).hasClass('open')){
+            $(this).removeClass('open')
+            $(this).next().css({"display": "none"});
+        }else{
+            $(this).addClass('open')
+            $(this).next().css({"display": "grid"});
+        }
+    })
+  </script>
+</html>
